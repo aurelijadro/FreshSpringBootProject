@@ -2,11 +2,21 @@ package it.akademija.parduotuve.model;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public final class CreateProductCommand {
+	@NotNull
+	@Length(min = 5, max = 50)
 	private String title;
+	@NotNull
 	private String image;
+	@NotNull
 	private String description;
+	@NotNull
 	private BigDecimal price;
+	@NotNull
 	private Long quantity;
 
 	public String getTitle() {

@@ -2,6 +2,8 @@ package it.akademija.parduotuve.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +41,8 @@ public class ProductController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation(value = "Create product", notes = "Creates new product with data")
-	public void createUser(
-			@ApiParam(value = "Product Data", required = true) @RequestBody final CreateProductCommand cmd) {
+	public void createProduct(
+			@ApiParam(value = "Product Data", required = true) @Valid @RequestBody final CreateProductCommand cmd) {
 		productDAO.createProduct(
 				new Product(cmd.getTitle(), cmd.getImage(), cmd.getDescription(), cmd.getPrice(), cmd.getQuantity()));
 	}
