@@ -2,11 +2,27 @@ package it.akademija.parduotuve.model;
 
 import java.math.BigDecimal;
 
-public final class Product {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Product {
+	@Column
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column
 	private String title;
+	@Column
 	private String image;
+	@Column
 	private String description;
+	@Column
 	private BigDecimal price;
+	@Column
 	private Long quantity;
 
 	public Product() {
