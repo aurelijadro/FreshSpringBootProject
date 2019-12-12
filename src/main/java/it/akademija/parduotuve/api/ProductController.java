@@ -16,26 +16,31 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import it.akademija.parduotuve.dao.ProductDAO;
+import it.akademija.parduotuve.PagingData;
 import it.akademija.parduotuve.model.CreateProductCommand;
 import it.akademija.parduotuve.model.Product;
+import services.ProductService;
 
 @RestController
 @Api(value = "product")
 @RequestMapping(value = "/api/products")
 public class ProductController {
 
-	private final ProductDAO productDAO;
+	private final ProductService productService;
 
 	@Autowired
-	public ProductController(ProductDAO productDAO) {
-		this.productDAO = productDAO;
+	public PagingData pagingData;
+
+	@Autowired
+	public ProductController(ProductService productService) {
+		this.productService = productService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(value = "Get products", notes = "Returns all products in store")
 	public List<Product> getProducts() {
-		return productDAO.getProducts();
+		pagingData.setLimit(10);
+		return productService.getProducts();
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -43,7 +48,7 @@ public class ProductController {
 	@ApiOperation(value = "Create product", notes = "Creates new product with data")
 	public void createProduct(
 			@ApiParam(value = "Product Data", required = true) @Valid @RequestBody final CreateProductCommand cmd) {
-		productDAO.createProduct(
+		productService.createProduct(
 				new Product(cmd.getTitle(), cmd.getImage(), cmd.getDescription(), cmd.getPrice(), cmd.getQuantity()));
 	}
 
@@ -51,7 +56,7 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Delete product", notes = "deletes product by title")
 	public void deleteProduct(@ApiParam(value = "Product title", required = true) @PathVariable final String title) {
-		productDAO.deleteProduct(title);
+		productService.deleteProduct(title);
 	}
 
 }

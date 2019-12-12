@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import it.akademija.parduotuve.PagingData;
 import it.akademija.parduotuve.model.Product;
 
 @Repository
@@ -14,8 +16,12 @@ public class DBProductDAO implements ProductDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	@Autowired
+	private PagingData pagingData;
+
 	public List<Product> getProducts() {
-		return entityManager.createQuery("SELECT p from Product p", Product.class).getResultList();
+		return entityManager.createQuery("SELECT p from Product p", Product.class).setMaxResults(pagingData.getLimit())
+				.getResultList();
 	}
 
 	public void createProduct(Product product) {
