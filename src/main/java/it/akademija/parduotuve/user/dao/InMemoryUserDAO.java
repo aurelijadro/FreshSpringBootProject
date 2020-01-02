@@ -4,12 +4,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import it.akademija.parduotuve.user.User;
 
-@Qualifier("userDao")
 @Repository
 public class InMemoryUserDAO implements UserDAO {
 	private final List<User> users = new CopyOnWriteArrayList<>();

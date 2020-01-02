@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import it.akademija.parduotuve.user.dao.UserDAO;
 import it.akademija.parduotuve.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -26,19 +24,17 @@ import org.springframework.http.HttpStatus;
 @RequestMapping(value = "/api/users")
 public class UserController {
 
-	@Autowired
-	@Qualifier("userDao")
-	private UserDAO userDao;
+	private UserService userService;
 
 	@Autowired
-	public UserController(UserDAO userDao) {
-		this.userDao = userDao;
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ApiOperation(value = "Get users", notes = "Returns registered users")
 	public List<User> getUsers() {
-		return userDao.getUsers(); // skaitome per DAO
+		return userService.getUsers(); // skaitome per DAO
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -46,13 +42,13 @@ public class UserController {
 	@ApiOperation(value = "Create user", notes = "Creates user with data")
 	public void createUser(
 			@ApiParam(value = "User Data", required = true) @Valid @RequestBody final CreateUserCommand cmd) {
-		userDao.createUser(new User(cmd.getUsername(), cmd.getFirstName(), cmd.getLastName(), cmd.getEmail()));
+		userService.createUser(new User(cmd.getUsername(), cmd.getFirstName(), cmd.getLastName(), cmd.getEmail()));
 	}
 
 	@RequestMapping(path = "/{username}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteUser(@PathVariable final String username) {
-		userDao.deleteUser(username);
+		userService.deleteUser(username);
 	}
 
 }
