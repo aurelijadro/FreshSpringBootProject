@@ -1,4 +1,4 @@
-package it.akademija.parduotuve.model;
+package it.akademija.parduotuve.product;
 
 import java.math.BigDecimal;
 
@@ -54,6 +54,10 @@ public class Product {
 
 	public Long getQuantity() {
 		return quantity;
+	}
+
+	public Object getId() {
+		return id;
 	}
 
 }

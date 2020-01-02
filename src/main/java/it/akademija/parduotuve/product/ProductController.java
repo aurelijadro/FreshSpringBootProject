@@ -1,4 +1,4 @@
-package it.akademija.parduotuve.api;
+package it.akademija.parduotuve.product;
 
 import java.util.List;
 
@@ -17,16 +17,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import it.akademija.parduotuve.PagingData;
-import it.akademija.parduotuve.model.CreateProductCommand;
-import it.akademija.parduotuve.model.Product;
-import services.ProductService;
+import it.akademija.parduotuve.product.Product;
+import it.akademija.parduotuve.product.ProductService;
 
 @RestController
 @Api(value = "product")
 @RequestMapping(value = "/api/products")
 public class ProductController {
 
-	private final ProductService productService;
+	private ProductService productService;
 
 	@Autowired
 	public PagingData pagingData;
@@ -52,11 +51,11 @@ public class ProductController {
 				new Product(cmd.getTitle(), cmd.getImage(), cmd.getDescription(), cmd.getPrice(), cmd.getQuantity()));
 	}
 
-	@RequestMapping(path = "/{title}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete product", notes = "deletes product by title")
-	public void deleteProduct(@ApiParam(value = "Product title", required = true) @PathVariable final String title) {
-		productService.deleteProduct(title);
+	@ApiOperation(value = "Delete product", notes = "deletes product by id")
+	public void deleteProduct(@ApiParam(value = "Product id", required = true) @PathVariable final String id) {
+		productService.deleteProduct(Long.parseLong(id));
 	}
 
 }

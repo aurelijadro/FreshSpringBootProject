@@ -1,4 +1,4 @@
-package it.akademija.parduotuve.model;
+package it.akademija.parduotuve.product;
 
 import java.math.BigDecimal;
 

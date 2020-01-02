@@ -1,11 +1,12 @@
-package it.akademija.parduotuve.dao;
+package it.akademija.parduotuve.product.dao;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.stereotype.Repository;
-import it.akademija.parduotuve.model.Product;
+
+import it.akademija.parduotuve.product.Product;
 
 @Repository
 public class InMemoryProductDAO implements ProductDAO {
@@ -23,9 +24,9 @@ public class InMemoryProductDAO implements ProductDAO {
 	}
 
 	@Override
-	public void deleteProduct(String title) {
+	public void deleteProduct(Long id) {
 		for (Product product : products) {
-			if (title.equals(product.getTitle())) {
+			if (id.equals(product.getId())) {
 				products.remove(product);
 				break;
 			}
