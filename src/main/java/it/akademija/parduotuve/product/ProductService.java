@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.akademija.parduotuve.product.Product;
-import it.akademija.parduotuve.product.dao.ProductRepository;
 
 @Service
 public class ProductService {

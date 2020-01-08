@@ -1,10 +1,8 @@
-package it.akademija.parduotuve.product.dao;
+package it.akademija.parduotuve.product;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import it.akademija.parduotuve.product.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	Product findByTitle(String title);
