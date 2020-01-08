@@ -13,25 +13,25 @@ import it.akademija.parduotuve.user.dao.UserRepository;
 @Service
 public class UserService {
 
-	@Autowired
-	@Qualifier("repoUserDao")
-	private UserDAO userDao;
+	private UserRepository userRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Transactional(readOnly = true)
 	public List<User> getUsers() {
-		return userDao.getUsers();
+		return userRepository.findAll();
 	}
 
 	@Transactional
 	public void createUser(User user) {
-		userDao.createUser(user);
+		userRepository.save(user);
 	}
 
 	@Transactional
 	public void deleteUser(String username) {
-		userDao.deleteUser(username);
+		userRepository.deleteByUsername(username);
 	}
 }
