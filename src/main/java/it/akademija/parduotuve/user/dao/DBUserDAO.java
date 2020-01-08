@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import it.akademija.parduotuve.user.User;
 
 @Qualifier("repoUserDao")
-@Primary
+
 @Repository
 public class DBUserDAO implements UserDAO {
 	@PersistenceContext

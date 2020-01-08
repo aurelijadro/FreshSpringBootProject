@@ -13,26 +13,27 @@ import it.akademija.parduotuve.product.dao.ProductRepository;
 
 @Service
 public class ProductService {
-	@Autowired
-	@Qualifier("repoProductDao")
-	private ProductDAO productDAO;
+
+	private ProductRepository productRepository;
 
 	@Autowired
-	private ProductRepository productRepository;
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
 	@Transactional(readOnly = true)
 	public List<Product> getProducts() {
-		return productDAO.getProducts();
+		return productRepository.findAll();
 	}
 
 	@Transactional
 	public void createProduct(Product product) {
-		productDAO.createProduct(product);
+		productRepository.save(product);
 	}
 
 	@Transactional
 	public void deleteProduct(Long id) {
-		productDAO.deleteProduct(id);
+		productRepository.deleteById(id);
 	}
 
 	@Transactional
