@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.parduotuve.user.dao.UserDAO;
-import it.akademija.parduotuve.user.dao.UserRepository;
-
 @Service
 public class UserService {
 

@@ -1,10 +1,8 @@
-package it.akademija.parduotuve.user.dao;
+package it.akademija.parduotuve.user;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import it.akademija.parduotuve.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
