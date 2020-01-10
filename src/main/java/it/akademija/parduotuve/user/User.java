@@ -3,6 +3,9 @@ package it.akademija.parduotuve.user;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import it.akademija.parduotuve.cart.Cart;
 
 @Entity
 public class User {
@@ -16,6 +19,13 @@ public class User {
 	private String lastName;
 	@Column
 	private String email;
+
+	@OneToOne(mappedBy = "user")
+	private Cart cart;
+
+	public Cart getCart() {
+		return cart;
+	}
 
 	public User() {
 	}
