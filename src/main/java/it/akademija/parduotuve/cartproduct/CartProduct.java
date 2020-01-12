@@ -28,9 +28,11 @@ public class CartProduct {
 	public CartProduct() {
 	}
 
-	public CartProduct(Long id, Long quantity) {
+	public CartProduct(Long id, Long quantity, Cart cart, Product product) {
 		this.id = id;
 		this.quantity = quantity;
+		this.cart = cart;
+		this.product = product;
 
 	}
 
