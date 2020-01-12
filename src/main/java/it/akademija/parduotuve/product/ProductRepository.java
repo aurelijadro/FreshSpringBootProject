@@ -11,6 +11,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	void deleteByTitle(String title);
 
+//	@Modifying
+//	@Query("update User u set u.firstname = ?1 where u.lastname = ?2")
+//	int setFixedFirstnameFor(String firstname, String lastname);
+
 	// List<Product>
 	// findProductsByTitleContainingOrDescriptionContainingAllIgnoreCase(String
 	// searchContent);

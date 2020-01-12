@@ -1,7 +1,9 @@
 package it.akademija.parduotuve.product;
 
 import java.util.List;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +53,43 @@ public class ProductController {
 				new Product(cmd.getTitle(), cmd.getImage(), cmd.getDescription(), cmd.getPrice(), cmd.getQuantity()));
 	}
 
+	@RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public void updateProductById(
+			@ApiParam(value = "updated product data", required = true) @Valid @PathVariable String id,
+			@RequestBody final CreateProductCommand cmd, HttpServletResponse response) {
+		Optional<Product> maybeProduct = productService.getProductById(Long.parseLong(id));
+		if (maybeProduct.isPresent()) {
+			Product product = maybeProduct.get();
+			product.setDescription(cmd.getDescription());
+			product.setImage(cmd.getImage());
+			product.setPrice(cmd.getPrice());
+			product.setQuantity(cmd.getQuantity());
+			product.setTitle(cmd.getTitle());
+			productService.save(product);
+		} else {
+			response.setStatus(404);
+		}
+	}
+
 	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Delete product", notes = "deletes product by id")
 	public void deleteProduct(@ApiParam(value = "Product id", required = true) @PathVariable final String id) {
 		productService.deleteProduct(Long.parseLong(id));
+	}
+
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Get product by ID", notes = "Returns a single product by it's id")
+	public Product getProductByID(@ApiParam(value = "Product id", required = true) @PathVariable final String id,
+			HttpServletResponse response) {
+		Optional<Product> product = productService.getProductById(Long.parseLong(id));
+		if (product.isPresent()) {
+			return product.get();
+		} else {
+			response.setStatus(404);
+			return null;
+		}
 	}
 
 }

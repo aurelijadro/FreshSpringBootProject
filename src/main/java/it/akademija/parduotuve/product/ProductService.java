@@ -1,6 +1,7 @@
 package it.akademija.parduotuve.product;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,4 +40,13 @@ public class ProductService {
 		return productRepository.findProductsByTitleContaining(whatever);
 	}
 
+	@Transactional
+	public Optional<Product> getProductById(Long id) {
+		return productRepository.findById(id);
+	}
+
+	@Transactional
+	public void save(Product product) {
+		productRepository.save(product);
+	}
 }

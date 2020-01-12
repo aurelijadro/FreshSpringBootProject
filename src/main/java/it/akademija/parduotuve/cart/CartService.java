@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.akademija.parduotuve.cartproduct.CartProduct;
-import it.akademija.parduotuve.cartproduct.CartProductRepository;
+import it.akademija.parduotuve.cart.Cart;
+import it.akademija.parduotuve.cart.CartRepository;
 
 @Service
 public class CartService {
@@ -19,7 +19,7 @@ public class CartService {
 	}
 
 	@Transactional(readOnly = true)
-	public Cart getCartById(Long id) {
+	public Cart getCartByUserId(Long id) {
 		return null;
 	}
 
