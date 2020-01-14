@@ -1,14 +1,19 @@
 package it.akademija.parduotuve.product;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
-
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import it.akademija.parduotuve.cart.Cart;
@@ -30,8 +35,10 @@ public class Product {
 	@Column
 	private Long quantity;
 
-	@OneToMany(mappedBy = "cartProducts")
-	private Set<Cart> carts = new HashSet();
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@JoinTable(name = "product_cart", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "cart_id") })
+	private List<Cart> carts = new ArrayList<Cart>();
 
 	public Product() {
 	}
@@ -92,12 +99,12 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public Set<Cart> getCarts() {
+	public List<Cart> getCarts() {
 		return carts;
 	}
 
-	public void setCarts(Set<Cart> carts) {
-		this.carts = carts;
+	public void addCart(Cart cart) {
+		this.carts.add(cart);
 	}
 
 }
