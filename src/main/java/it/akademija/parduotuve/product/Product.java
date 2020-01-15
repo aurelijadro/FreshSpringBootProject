@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import it.akademija.parduotuve.cart.Cart;
 
 @Entity
@@ -38,6 +40,7 @@ public class Product {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JoinTable(name = "product_cart", joinColumns = { @JoinColumn(name = "product_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "cart_id") })
+	@JsonIgnore
 	private List<Cart> carts = new ArrayList<Cart>();
 
 	public Product() {
