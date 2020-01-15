@@ -23,6 +23,12 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 
+	@RequestMapping(path = "{username}/cartItemCount", method = RequestMethod.GET)
+	@ApiOperation(value = "Get number of items in users cart")
+	private int getNumberOfItemsInCart(@PathVariable String username) {
+		return cartService.getCartProducts(username).size();
+	}
+
 	@RequestMapping(path = "/{username}/{productId}", method = RequestMethod.POST)
 	@ApiOperation(value = "Add product to a cart", notes = "Adds product by id to provided username cart.")
 	private void addToCart(@PathVariable("username") String username, @PathVariable("productId") Long productId) {

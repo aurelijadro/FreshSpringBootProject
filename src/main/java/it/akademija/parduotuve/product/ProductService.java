@@ -20,6 +20,12 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
+	@Transactional
+	public int getCountInCarts(Long productId) {
+		Product product = productRepository.getOne(productId);
+		return product.getCarts().size();
+	}
+
 	@Transactional(readOnly = true)
 	public List<Product> getProducts() {
 		return productRepository.findAll();

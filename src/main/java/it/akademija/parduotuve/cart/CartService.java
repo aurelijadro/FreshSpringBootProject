@@ -2,6 +2,7 @@ package it.akademija.parduotuve.cart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,18 @@ public class CartService {
 
 	@Autowired
 	private CartRepository cartRepository;
+
+//	@Transactional
+//	public int getCartProductCountByProductId(Long productId) {
+//		List<Cart> carts = cartRepository.findAll();
+//		List<Product> cartProducts = new ArrayList<Product>();
+//		carts.stream().map(cart -> cart.getProducts().stream().map(product -> cartProducts.add(product)));
+//		List<Product> productsInCartsById = cartProducts.stream().filter(product -> product.getId().equals(productId))
+//				.collect(Collectors.toList());
+//		// return productsInCartsById.size();
+//		return cartProducts.size();
+//		;
+//	}
 
 	@Transactional
 	public List<Product> getCartProducts(String username) {

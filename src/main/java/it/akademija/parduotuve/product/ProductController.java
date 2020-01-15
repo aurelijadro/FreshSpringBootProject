@@ -92,4 +92,10 @@ public class ProductController {
 		}
 	}
 
+	@RequestMapping(path = "{productId}/carts", method = RequestMethod.GET)
+	@ApiOperation(value = "get quantity of products in cart by product ID")
+	private int getNumOfProductInCarts(@PathVariable("productId") Long productId) {
+		return productService.getCountInCarts(productId);
+	}
+
 }
